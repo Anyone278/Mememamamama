@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry Piyasa</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .sorry-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .sorry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+        }
+
+        .sorry-button:active {
+            transform: translateY(0);
+        }
+
+        .message {
+            font-size: 1.5em;
+            color: white;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        .click-count {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sorry Piyasa 💔</h1>
+        <button class="sorry-button" onclick="showApology()">Click for Apology</button>
+        <div class="message" id="messageBox"></div>
+        <div class="click-count" id="clickCount">Clicks: 0</div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        
+        const apologyMessages = [
+            "😢 I'm sorry and I love you Poopy Ass Paisa",
+            "😭 I'm so sorry and I love you Poopy Ass Paisa",
+            "😔 I'm really sorry and I love you Poopy Ass Paisa",
+            "🥺 I'm deeply sorry and I love you Poopy Ass Paisa",
+            "😿 I'm truly sorry and I love you Poopy Ass Paisa",
+            "💔 I'm terribly sorry and I love you Poopy Ass Paisa",
+            "😞 I'm sincerely sorry and I love you Poopy Ass Paisa",
+            "😢 I'm incredibly sorry and I love you Poopy Ass Paisa",
+            "😭 I'm profoundly sorry and I love you Poopy Ass Paisa",
+            "😔 I'm absolutely sorry and I love you Poopy Ass Paisa",
+            "🥺 I'm completely sorry and I love you Poopy Ass Paisa",
+            "😿 I'm utterly sorry and I love you Poopy Ass Paisa",
+            "💔 I'm genuinely sorry and I love you Poopy Ass Paisa",
+            "😞 I'm wholeheartedly sorry and I love you Poopy Ass Paisa",
+            "😢 I'm extremely sorry and I love you Poopy Ass Paisa"
+        ];
+
+        function showApology() {
+            clickCount++;
+            const messageBox = document.getElementById('messageBox');
+            const clickCountElement = document.getElementById('clickCount');
+            
+            // Remove show class first
+            messageBox.classList.remove('show');
+            
+            // After a brief delay, update content and show
+            setTimeout(() => {
+                const randomMessage = apologyMessages[Math.floor(Math.random() * apologyMessages.length)];
+                messageBox.innerHTML = randomMessage;
+                messageBox.classList.add('show');
+                clickCountElement.textContent = `Clicks: ${clickCount}`;
+            }, 200);
+        }
+
+        // Initialize with first message
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('messageBox').innerHTML = "Click the button above to see an apology! 👆";
+                document.getElementById('messageBox').classList.add('show');
+            }, 500);
+        };
+    </script>
+</body>
+</html>
