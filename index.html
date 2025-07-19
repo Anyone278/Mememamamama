@@ -3,151 +3,481 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorry Piyasa</title>
+    <title>Happy Birthday Piyasa! 🎉</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
             box-sizing: border-box;
         }
 
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .birthday-effects {
+            display: none;
+        }
+
+        .birthday-effects.active {
+            display: block;
+        }
+
+        .confetti {
+            position: fixed;
+            top: -10px;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: #ff69b4;
+            animation: confetti-fall 3s linear infinite;
+            z-index: 1000;
+        }
+
+        .confetti:nth-child(2) { left: 20%; background: #ff1493; animation-delay: -0.5s; }
+        .confetti:nth-child(3) { left: 30%; background: #ff69b4; animation-delay: -1s; }
+        .confetti:nth-child(4) { left: 40%; background: #ffc0cb; animation-delay: -1.5s; }
+        .confetti:nth-child(5) { left: 60%; background: #ff1493; animation-delay: -2s; }
+        .confetti:nth-child(6) { left: 70%; background: #ff69b4; animation-delay: -2.5s; }
+        .confetti:nth-child(7) { left: 80%; background: #ffc0cb; animation-delay: -3s; }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 50%;
+            left: 10%;
+            font-size: 20px;
+            color: #ff1493;
+            animation: float-hearts 4s ease-in-out infinite;
+            z-index: 1000;
+        }
+
+        .floating-hearts:nth-child(2) { left: 90%; animation-delay: -1s; }
+        .floating-hearts:nth-child(3) { left: 15%; animation-delay: -2s; }
+        .floating-hearts:nth-child(4) { left: 85%; animation-delay: -3s; }
+
+        @keyframes float-hearts {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
         .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
             text-align: center;
-            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #ff1493, #ff69b4, #ffc0cb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px #ff69b4); }
+            to { filter: drop-shadow(0 0 20px #ff1493); }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .nicknames {
+            background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 600px;
-            width: 100%;
-        }
-
-        h1 {
-            color: white;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .sorry-button {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .sorry-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(45deg, #ee5a24, #ff6b6b);
-        }
-
-        .sorry-button:active {
-            transform: translateY(0);
-        }
-
-        .message {
-            font-size: 1.5em;
-            color: white;
-            margin-top: 20px;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            min-height: 80px;
+            margin: 20px 0;
+            text-align: center;
+            animation: slideInUp 1s ease-out 0.5s both;
+        }
+
+        .countdown-container {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: slideInUp 1s ease-out 1s both;
+        }
+
+        .countdown-title {
+            font-size: 2rem;
+            color: #ff1493;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
             display: flex;
-            align-items: center;
             justify-content: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        .message.show {
-            opacity: 1;
-            transform: translateY(0);
+        .countdown-item {
+            background: rgba(255, 20, 147, 0.1);
+            border: 2px solid #ff1493;
+            border-radius: 15px;
+            padding: 15px;
+            min-width: 80px;
+            animation: pulse 2s infinite;
         }
 
-        .emoji {
-            font-size: 1.2em;
-            margin-right: 10px;
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff1493;
+            display: block;
         }
 
-        .click-count {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9em;
-            margin-top: 10px;
+        .countdown-label {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            animation: fadeIn 1s ease-out 1.5s both;
+        }
+
+        .photo-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .photo-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 45px rgba(255, 20, 147, 0.3);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-caption {
+            padding: 20px;
+            text-align: center;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .birthday-message {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: slideInUp 1s ease-out 2s both;
+        }
+
+        .birthday-message h2 {
+            color: #ff1493;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .birthday-message p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .sparkle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #ff69b4;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .countdown {
+                gap: 15px;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+                padding: 10px;
+            }
+            
+            .photo-gallery {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+            
+            .birthday-message h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="birthday-effects" id="birthdayEffects">
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="floating-hearts">💖</div>
+        <div class="floating-hearts">💝</div>
+        <div class="floating-hearts">💖</div>
+        <div class="floating-hearts">💝</div>
+    </div>
+
     <div class="container">
-        <h1>Sorry Piyasa ðŸ’”</h1>
-        <button class="sorry-button" onclick="showApology()">Click for Apology</button>
-        <div class="message" id="messageBox"></div>
-        <div class="click-count" id="clickCount">Clicks: 0</div>
+        <header class="header">
+            <h1 class="main-title">Happy Birthday Piyasa! 🎉</h1>
+            <p class="subtitle">Celebrating the most amazing person! ✨</p>
+        </header>
+
+        <div class="countdown-container">
+            <h2 class="countdown-title">Countdown to Your Special Day! 🎂</h2>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">0</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+            <div id="birthdayToday" style="display: none;">
+                <h2 style="color: #ff1493; font-size: 3rem; margin-top: 20px;">🎉 IT'S YOUR BIRTHDAY! 🎉</h2>
+                <p style="font-size: 1.5rem; color: #ff69b4;">Have the most amazing day, beautiful! 💖</p>
+            </div>
+        </div>
+
+        <div class="photo-gallery">
+            <div class="photo-card">
+                <img src="https://raw.githubusercontent.com/Anyone278/Mememamamama/main/IMG-20250602-WA0022.jpg" alt="Piyasa in the mountains" />
+                <div class="photo-caption">Mountain Adventure 🏔️</div>
+            </div>
+            <div class="photo-card">
+                <img src="https://raw.githubusercontent.com/Anyone278/Mememamamama/main/IMG-20250602-WA0025.jpg" alt="Piyasa in elegant blue" />
+                <div class="photo-caption">Elegant in Blue 💙</div>
+            </div>
+            <div class="photo-card">
+                <img src="https://raw.githubusercontent.com/Anyone278/Mememamamama/main/IMG_20250719_133620_884.jpg" alt="Piyasa in gorgeous red" />
+                <div class="photo-caption">Gorgeous in Red ❤️</div>
+            </div>
+            <div class="photo-card">
+                <img src="https://raw.githubusercontent.com/Anyone278/Mememamamama/main/IMG_20250719_133646_808.jpg" alt="Piyasa at cafe" />
+                <div class="photo-caption">Cafe Vibes ☕</div>
+            </div>
+            <div class="photo-card">
+                <img src="https://raw.githubusercontent.com/Anyone278/Mememamamama/main/IMG_20250719_133641_257.jpg" alt="Piyasa nighttime photo" />
+                <div class="photo-caption">Nighttime Magic ✨</div>
+            </div>
+        </div>
+
+        <div class="birthday-message">
+            <h2>You're Simply Amazing! 💖</h2>
+            <p>
+                Piyasa, you bring so much joy and light into this world! Your smile can brighten anyone's day, 
+                and your beautiful heart makes everyone around you feel special. Here's to celebrating another 
+                year of your incredible journey and all the amazing moments yet to come. 
+                You deserve all the happiness, love, and wonderful surprises life has to offer! 
+            </p>
+            <p style="margin-top: 20px; font-style: italic; color: #ff1493;">
+                "Born on July 20, 2005 - A day the world became more beautiful! 🌟"
+            </p>
+        </div>
     </div>
 
     <script>
-        let clickCount = 0;
-        
-        const apologyMessages = [
-            "ðŸ˜¢ I'm sorry and I love you Poopy Ass Paisa",
-            "ðŸ˜­ I'm so sorry and I love you Poopy Ass Paisa",
-            "ðŸ˜” I'm really sorry and I love you Poopy Ass Paisa",
-            "ðŸ¥º I'm deeply sorry and I love you Poopy Ass Paisa",
-            "ðŸ˜¿ I'm truly sorry and I love you Poopy Ass Paisa",
-            "ðŸ’” I'm terribly sorry and I love you Poopy Ass Paisa",
-            "ðŸ˜ž I'm sincerely sorry and I love you Poopy Ass Paisa",
-            "ðŸ˜¢ I'm incredibly sorry and I love you Poopy Ass Paisa",
-            "ðŸ˜­ I'm profoundly sorry and I love you Poopy Ass Paisa",
-            "ðŸ˜” I'm absolutely sorry and I love you Poopy Ass Paisa",
-            "ðŸ¥º I'm completely sorry and I love you Poopy Ass Paisa",
-            "ðŸ˜¿ I'm utterly sorry and I love you Poopy Ass Paisa",
-            "ðŸ’” I'm genuinely sorry and I love you Poopy Ass Paisa",
-            "ðŸ˜ž I'm wholeheartedly sorry and I love you Poopy Ass Paisa",
-            "ðŸ˜¢ I'm extremely sorry and I love you Poopy Ass Paisa"
-        ];
-
-        function showApology() {
-            clickCount++;
-            const messageBox = document.getElementById('messageBox');
-            const clickCountElement = document.getElementById('clickCount');
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const currentYear = new Date().getFullYear();
+            let birthdayThisYear = new Date(currentYear, 6, 20).getTime(); // July 20th
             
-            // Remove show class first
-            messageBox.classList.remove('show');
+            // If birthday has passed this year, calculate for next year
+            if (now > birthdayThisYear) {
+                birthdayThisYear = new Date(currentYear + 1, 6, 20).getTime();
+            }
             
-            // After a brief delay, update content and show
-            setTimeout(() => {
-                const randomMessage = apologyMessages[Math.floor(Math.random() * apologyMessages.length)];
-                messageBox.innerHTML = randomMessage;
-                messageBox.classList.add('show');
-                clickCountElement.textContent = `Clicks: ${clickCount}`;
-            }, 200);
+            const distance = birthdayThisYear - now;
+            
+            // Check if it's her birthday today
+            const today = new Date();
+            const isBirthday = today.getMonth() === 6 && today.getDate() === 20;
+            
+            if (isBirthday) {
+                document.getElementById('countdown').style.display = 'none';
+                document.getElementById('birthdayToday').style.display = 'block';
+                document.getElementById('birthdayEffects').classList.add('active');
+                document.querySelector('.countdown-title').textContent = '🎉 HAPPY BIRTHDAY! 🎉';
+            } else {
+                document.getElementById('countdown').style.display = 'flex';
+                document.getElementById('birthdayToday').style.display = 'none';
+                document.getElementById('birthdayEffects').classList.remove('active');
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            }
         }
-
-        // Initialize with first message
-        window.onload = function() {
+        
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // Sparkle effect on mouse move
+        document.addEventListener('mousemove', function(e) {
+            createSparkle(e.clientX, e.clientY);
+        });
+        
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            document.body.appendChild(sparkle);
+            
+            const colors = ['#ff69b4', '#ff1493', '#ffc0cb', '#ff91a4'];
+            sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            sparkle.animate([
+                { opacity: 1, transform: 'scale(0) rotate(0deg)' },
+                { opacity: 0, transform: 'scale(1) rotate(180deg)' }
+            ], {
+                duration: 1000,
+                easing: 'ease-out'
+            });
+            
             setTimeout(() => {
-                document.getElementById('messageBox').innerHTML = "Click the button above to see an apology! ðŸ‘†";
-                document.getElementById('messageBox').classList.add('show');
-            }, 500);
-        };
+                sparkle.remove();
+            }, 1000);
+        }
+        
+        // Add some random sparkles periodically
+        setInterval(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            createSparkle(x, y);
+        }, 3000);
+        
+        // Photo gallery hover effects
+        const photoCards = document.querySelectorAll('.photo-card');
+        photoCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02) rotate(1deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1) rotate(0deg)';
+            });
+        });
     </script>
 </body>
 </html>
